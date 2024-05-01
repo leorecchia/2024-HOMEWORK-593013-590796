@@ -13,23 +13,27 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  */
 
 public class Partita {
+
 	//static final private int CFU_INIZIALI = 20;
 
 	private Stanza stanzaCorrente;
 	private Labirinto labirinto;
-	private Giocatore giocatore;
 	private boolean finita;
+	private Giocatore giocatore;
 	//private int cfu;
 	
 	public Partita(){
-		this.labirinto=new Labirinto();
-		this.stanzaCorrente=this.labirinto.getStanzaIniziale();
+		this.labirinto = new Labirinto();
+		this.stanzaCorrente = this.labirinto.getStanzaIniziale();
 		this.finita = false;
-		this.giocatore=new Giocatore();
+		this.giocatore = new Giocatore ();
 		//this.cfu = CFU_INIZIALI;
 	}
-    
 
+	public Labirinto getLabirinto () {
+		return this.labirinto;
+	}
+	
 	public void setStanzaCorrente(Stanza stanzaCorrente) {
 		this.stanzaCorrente = stanzaCorrente;
 	}
@@ -43,7 +47,7 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return this.getStanzaCorrente() == this.labirinto.getStanzaVincente();
+		return this.getStanzaCorrente()== this.labirinto.getStanzaVincente();
 	}
 
 	/**
@@ -53,7 +57,11 @@ public class Partita {
 	public boolean isFinita() {
 		return finita || vinta() || (this.giocatore.getCfu() == 0);
 	}
-
+	
+	public boolean giocatoreIsVivo() {
+		return this.giocatore.getCfu() > 0;
+	}
+	
 	/**
 	 * Imposta la partita come finita
 	 *
@@ -62,19 +70,8 @@ public class Partita {
 		this.finita = true;
 	}
 	
-	public Giocatore getGiocatore() {
-		return this.giocatore;
-	}
-	
-	public Labirinto getLabirinto() {
-		return this.labirinto;
+	public Giocatore getGiocatore () {
+		return giocatore;
 	}
 
-	/* public int getCfu() {
-		return this.cfu;
-	}
-
-	public void setCfu(int cfu) {
-		this.cfu = cfu;		
-//	}	*/
 }

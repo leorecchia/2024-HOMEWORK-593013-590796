@@ -2,34 +2,24 @@ package it.uniroma3.diadia.ambienti;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
-/**
- * Classe Stanza - una stanza in un gioco di ruolo. Una stanza e' un luogo
- * fisico nel gioco. E' collegata ad altre stanze attraverso delle uscite. Ogni
- * uscita e' associata ad una direzione.
- * 
- * @author docente di POO
- * @see Attrezzo
- * @version base
- */
-
-public class Stanza {
+public class StanzaProtected {
 
 	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
 	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
 
 	private String nome;
-	private Attrezzo[] attrezzi;
-	private int numeroAttrezzi;
-	private Stanza[] stanzeAdiacenti;
-	private int numeroStanzeAdiacenti;
-	private String[] direzioni;
+	protected Attrezzo[] attrezzi;
+	protected int numeroAttrezzi;
+	protected Stanza[] stanzeAdiacenti;
+	protected int numeroStanzeAdiacenti;
+	protected String[] direzioni;
 
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
 	 * 
 	 * @param nome il nome della stanza
 	 */
-	public Stanza(String nome) {
+	public StanzaProtected(String nome) {
 		this.nome = nome;
 		this.numeroStanzeAdiacenti = 0;
 		this.numeroAttrezzi = 0;
