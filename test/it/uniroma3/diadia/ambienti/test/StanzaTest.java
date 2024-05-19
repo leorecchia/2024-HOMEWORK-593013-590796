@@ -61,34 +61,68 @@ public class StanzaTest {
 		Stanza stanzaNonVuota=new Stanza("stanzaNonVuota");
 		Attrezzo attrezzoInStanzaNonVuota=new Attrezzo("attrezzoInStanzaNonVuota", 3);
 		stanzaNonVuota.addAttrezzo(attrezzoInStanzaNonVuota);
+		System.out.println(stanzaNonVuota.toString());
 		assertNotNull(stanzaNonVuota.getAttrezzo("attrezzoInStanzaNonVuota"));
 	}
 	
 	/******* TEST PER LA FUNZIONE getDirezioni ********/
 	
-	// verifichiamo che la stanza1 abbia almeno una direzione nel suo array di direzioni
+	// verifichiamo che la stanzaConDirezione abbia almeno una direzione nel suo set di direzioni
 	@Test
 	public void direzioniNonNulle() {
 		Stanza stanzaConDirezione=new Stanza("conDirezione");
 		Stanza stanzaANord=new Stanza("nord");
 		stanzaConDirezione.impostaStanzaAdiacente("nord", stanzaANord);
-		assertNotNull(stanzaConDirezione.getDirezioni()[0]);
+		assertFalse(stanzaConDirezione.getDirezioni().isEmpty());
 	}
 	
 	// verifichiamo che una stanza nuova ha l'array di direzioni vuoto e quindi non ha stanze adiacenti
 	@Test
 	public void direzioniNulle() {
 		Stanza nessunaAdiacente=new Stanza("nessunaAdiacente");
-		assertEquals(nessunaAdiacente.getDirezioni().length, 0);
+		assertEquals(nessunaAdiacente.getDirezioni().size(), 0);
 	}
 	
-	// test che verifica che avendo inserito una direzione a stanza1 risulti una lunghezza dell'array di direzioni corretta
+	// test che verifica che avendo inserito una direzione a stanza1 risulti una lunghezza del set di direzioni corretta
 	@Test
 	public void numeroGiusto() {
 		Stanza stanzaConDirezione=new Stanza("conDirezione");
 		Stanza stanzaANord=new Stanza("nord");
 		stanzaConDirezione.impostaStanzaAdiacente("nord", stanzaANord);
-		assertEquals(1, stanzaConDirezione.getDirezioni().length);
+		assertEquals(1, stanzaConDirezione.getDirezioni().size());
+	}
+	
+	/******* TEST PER LA FUNZIONE equals ********/
+	
+	@Test
+	public void uguaglianza() {
+		Stanza s1=new Stanza("s1");
+		Stanza s2=new Stanza("s1");
+		assertEquals(s1, s2);
+	}
+	
+	@Test
+	public void disuguaglianza1() {
+		Stanza s1=new Stanza("s1");
+		Stanza s2=new Stanza("s2");
+		assertNotEquals(s1, s2);
+	}
+	
+	@Test
+	public void disuguaglianza2() {
+		Stanza s1=new Stanza("s1");
+		Stanza s2=new Stanza("s1");
+		s2.impostaStanzaAdiacente("nord", s2);
+		assertNotEquals(s1, s2);
+	}
+	
+	@Test
+	public void disuguaglianza3() {
+		Stanza s1=new Stanza("s1");
+		Stanza s2=new Stanza("s1");
+		Attrezzo a1=new Attrezzo("a1", 2);
+		s1.addAttrezzo(a1);
+		assertNotEquals(s1, s2);
 	}
 }
 

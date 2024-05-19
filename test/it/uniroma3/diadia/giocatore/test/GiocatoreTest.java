@@ -5,6 +5,7 @@ import org.junit.*;
 import org.junit.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.giocatore.Giocatore;
 
@@ -14,7 +15,7 @@ public class GiocatoreTest {
 	
 	@Before
 	public void setUp() {
-		partita=new Partita();
+		partita=new Partita(new LabirintoBuilder());
 	}
 
 	/******* TEST METODO getCfu ******/

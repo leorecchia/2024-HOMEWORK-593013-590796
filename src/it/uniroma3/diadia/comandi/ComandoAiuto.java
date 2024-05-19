@@ -1,37 +1,40 @@
 package it.uniroma3.diadia.comandi;
 
 import it.uniroma3.diadia.IO;
-import it.uniroma3.diadia.IOConsole;
+
 import it.uniroma3.diadia.Partita;
 
+/**
+ * Stampa informazioni di aiuto.
+ */
 public class ComandoAiuto implements Comando{
 	
+	static final private String[] elencoComandi = {"vai", "aiuto", "fine", "prendi", "posa"};
 	private IO io;
-	static final private String[] elencoComandi = { "vai", "aiuto", "fine", "prendi", "posa" , "guarda"};
-	
 	
 	@Override
-	public void setIo (IO io) {
-		this.io=io;
+	public void esegui(Partita partita) {
+		for(int i=0; i<elencoComandi.length; i++) 
+			io.mostraMessaggio(elencoComandi[i]+" ");			//stampa la lista di comandi che si possono scegliere
+		io.mostraMessaggio("");
 	}
 	
-	@Override
+	@Override 
 	public void setParametro(String parametro) {}
 	
 	@Override
-	public String getParametro () {
+	public String getNome() {
+		return "aiuto";
+	}
+	
+	@Override
+	public String getParametro() {
 		return null;
 	}
 	
 	@Override
-	public String getNome () {
-		return "Aiuto";
+	public void setIO(IO io) {
+		this.io=io;
 	}
 	
-	@Override
-	public void esegui(Partita partita) {
-		for (int i = 0; i < elencoComandi.length; i++)
-			io.mostraMessaggio(elencoComandi[i] + " "); // stampa tutti i comandi
-		io.mostraMessaggio("");
-	}
 }

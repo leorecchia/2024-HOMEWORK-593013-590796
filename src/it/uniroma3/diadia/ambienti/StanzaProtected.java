@@ -3,11 +3,10 @@ package it.uniroma3.diadia.ambienti;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaProtected {
-
 	static final private int NUMERO_MASSIMO_DIREZIONI = 4;
 	static final private int NUMERO_MASSIMO_ATTREZZI = 10;
 
-	private String nome;
+	protected String nome;
 	protected Attrezzo[] attrezzi;
 	protected int numeroAttrezzi;
 	protected Stanza[] stanzeAdiacenti;
@@ -15,18 +14,17 @@ public class StanzaProtected {
 	protected String[] direzioni;
 
 	/**
-	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
-	 * 
-	 * @param nome il nome della stanza
-	 */
-	public StanzaProtected(String nome) {
-		this.nome = nome;
-		this.numeroStanzeAdiacenti = 0;
-		this.numeroAttrezzi = 0;
-		this.direzioni = new String[NUMERO_MASSIMO_DIREZIONI];
-		this.stanzeAdiacenti = new Stanza[NUMERO_MASSIMO_DIREZIONI];
-		this.attrezzi = new Attrezzo[NUMERO_MASSIMO_ATTREZZI];
-	}
+     * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
+     * @param nome il nome della stanza
+     */
+    public StanzaProtected(String nome) {
+        this.nome = nome;
+        this.numeroStanzeAdiacenti = 0;
+        this.numeroAttrezzi = 0;
+        this.direzioni = new String[NUMERO_MASSIMO_DIREZIONI];
+        this.stanzeAdiacenti = new Stanza[NUMERO_MASSIMO_DIREZIONI];
+        this.attrezzi = new Attrezzo[NUMERO_MASSIMO_ATTREZZI];
+    }
 
 	/**
 	 * Imposta una stanza adiacente.
@@ -101,9 +99,8 @@ public class StanzaProtected {
 			this.attrezzi[numeroAttrezzi] = attrezzo;
 			this.numeroAttrezzi++;
 			return true;
-		} else {
+		} else
 			return false;
-		}
 	}
 
 	/**
@@ -121,9 +118,8 @@ public class StanzaProtected {
 				risultato.append(" " + direzione);
 		risultato.append("\nAttrezzi nella stanza: ");
 		for (int i = 0; i < this.numeroAttrezzi; i++) {
-			Attrezzo attrezzo = this.attrezzi[i];
-			if (attrezzo != null)
-				risultato.append(attrezzo.toString() + " ");
+			if (attrezzi[i] != null)
+				risultato.append(attrezzi[i].toString() + " ");
 		}
 		return risultato.toString();
 	}
@@ -152,10 +148,11 @@ public class StanzaProtected {
 	public Attrezzo getAttrezzo(String nomeAttrezzo) {
 		Attrezzo attrezzoCercato;
 		attrezzoCercato = null;
-		for (int i = 0; i < this.numeroAttrezzi; i++) {
-			Attrezzo attrezzo = this.attrezzi[i];
-			if (attrezzo.getNome().equals(nomeAttrezzo))
-				attrezzoCercato = attrezzo;
+		for (Attrezzo attrezzo : this.attrezzi) {
+			if (attrezzo != null) {
+				if (attrezzo.getNome().equals(nomeAttrezzo))
+					attrezzoCercato = attrezzo;
+			}
 		}
 		return attrezzoCercato;
 	}
@@ -167,28 +164,24 @@ public class StanzaProtected {
 	 * @return true se l'attrezzo e' stato rimosso, false altrimenti
 	 */
 	public boolean removeAttrezzo(Attrezzo attrezzo) {
-		/*
-		 * 1 controllo attrezzo esistente per rimuoverlo 2 controllo presenza
-		 * dell'attrezzo nella stanza 3 rimozione (dall'array)
-		 */
 
+		// controllo se c'è attrezzo in stanza
 		for (int i = 0; i < this.numeroAttrezzi; i++) {
+			// se troviamo l'attrezzo nella stanza procediamo con la rimozione
+			if (attrezzi[i].getNome().equals(attrezzo.getNome())) {
+				for (int j = i; attrezzi[j] != null; j++) {
 
-			if (attrezzo.getNome().equals(attrezzi[i].getNome())) { // attrezzo trovato, ora lo eliminiamo
-
-				for (int j = i; attrezzi[j] != null; j++) { // for implementato per spostare tutti gli elementi
-															// dell'array
+					/* il caso in cui rimuoviamo un attrezzo da un array pieno */
 					if (j == 9)
-						attrezzi[j] = null; // caso in cui ci torviamo sull'ultimo elemento dell'array pieno
+						attrezzi[j] = null;
+
 					else
 						attrezzi[j] = attrezzi[j + 1];
 				}
-
-				numeroAttrezzi--; // decrementazione numero degli attrezzi
+				numeroAttrezzi--; // numero attrezzi è decrementato di 1
 				return true;
 			}
 		}
-
 		return false;
 	}
 

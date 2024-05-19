@@ -8,32 +8,29 @@ import it.uniroma3.diadia.giocatore.Giocatore;
  * Questa classe modella una partita del gioco
  *
  * @author  docente di POO
+ * 
  * @see Stanza
+ * @see Labirinto
+ * @see Giocatore
+ * 
  * @version base
  */
 
 public class Partita {
 
-	//static final private int CFU_INIZIALI = 20;
-
 	private Stanza stanzaCorrente;
 	private Labirinto labirinto;
-	private boolean finita;
 	private Giocatore giocatore;
-	//private int cfu;
+	private boolean finita;
 	
-	public Partita(){
-		this.labirinto = new Labirinto();
-		this.stanzaCorrente = this.labirinto.getStanzaIniziale();
+	public Partita(Labirinto labirinto){
+		this.labirinto=labirinto;
+		this.stanzaCorrente=this.labirinto.getStanzaIniziale();
 		this.finita = false;
-		this.giocatore = new Giocatore ();
-		//this.cfu = CFU_INIZIALI;
+		this.giocatore=new Giocatore();
 	}
+    
 
-	public Labirinto getLabirinto () {
-		return this.labirinto;
-	}
-	
 	public void setStanzaCorrente(Stanza stanzaCorrente) {
 		this.stanzaCorrente = stanzaCorrente;
 	}
@@ -47,7 +44,7 @@ public class Partita {
 	 * @return vero se partita vinta
 	 */
 	public boolean vinta() {
-		return this.getStanzaCorrente()== this.labirinto.getStanzaVincente();
+		return this.getStanzaCorrente() == this.labirinto.getStanzaVincente();
 	}
 
 	/**
@@ -57,11 +54,7 @@ public class Partita {
 	public boolean isFinita() {
 		return finita || vinta() || (this.giocatore.getCfu() == 0);
 	}
-	
-	public boolean giocatoreIsVivo() {
-		return this.giocatore.getCfu() > 0;
-	}
-	
+
 	/**
 	 * Imposta la partita come finita
 	 *
@@ -70,8 +63,19 @@ public class Partita {
 		this.finita = true;
 	}
 	
-	public Giocatore getGiocatore () {
-		return giocatore;
+	public Giocatore getGiocatore() {
+		return this.giocatore;
 	}
-
+	
+	public Labirinto getLabirinto() {
+		return this.labirinto;
+	}
+	
+	public boolean giocatoreIsVivo() {
+		return (this.giocatore.getCfu()>0);
+	}
+	
+	public void setLabirinto(Labirinto labirinto) {
+		this.labirinto=labirinto;
+	}
 }
