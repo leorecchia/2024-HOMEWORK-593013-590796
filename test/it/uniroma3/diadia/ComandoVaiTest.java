@@ -2,22 +2,28 @@ package it.uniroma3.diadia;
 
 import static org.junit.Assert.*;
 
+import java.util.Scanner;
+
 import org.junit.Before;
 import org.junit.Test;
 
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.Stanza;
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.comandi.AbstractComando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 
 public class ComandoVaiTest {
 	private Partita partita;
-	private Comando comando;
-	FabbricaDiComandiFisarmonica factory;
-	private IO io = new IOConsole();
+	private AbstractComando comando;
+	FabbricaDiComandiRiflessiva factory;
+	Scanner scannerDiLinee = new Scanner(System.in);
+	private IO io = new IOConsole(scannerDiLinee);
+	
 	@Before
 	public void setUp() {
-		partita = new Partita();
-		factory = new FabbricaDiComandiFisarmonica(io);
+		Labirinto labirinto = new Labirinto();
+		partita = new Partita(labirinto);
+		factory = new FabbricaDiComandiRiflessiva(io);
 	}
 	
 	@Test

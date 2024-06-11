@@ -2,6 +2,8 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
+
 import org.junit.Test;
 
 
@@ -40,43 +42,41 @@ public class StanzaTest {
 	public void testGetStanzaAdiacenteCorretta() {
 		Stanza stanzaPrincipale = new Stanza("stanzaPrincipale");
 		Stanza stanzaAdiacente = new Stanza("stanzaAdiacente");
-		stanzaPrincipale.impostaStanzaAdiacente("nord", stanzaAdiacente);
-		assertEquals (stanzaAdiacente, stanzaPrincipale.getStanzaAdiacente("nord"));
+		stanzaPrincipale.impostaStanzaAdiacente(Direzione.NORD, stanzaAdiacente);
+		assertEquals (stanzaAdiacente, stanzaPrincipale.getStanzaAdiacente(Direzione.NORD));
 	}
 	
 	@Test
 	public void testGetStanzaAdiacenteNulla() {
 		Stanza stanzaPrincipale = new Stanza("stanzaPrincipale");
-		assertNull (stanzaPrincipale.getStanzaAdiacente("nord"));
+		assertNull (stanzaPrincipale.getStanzaAdiacente(Direzione.NORD));
 	}
 	
 	@Test
 	public void testGetStanzaAdiacente_conDirezioneNulla() {
 		Stanza stanzaPrincipale = new Stanza("stanzaPrincipale");
 		Stanza stanzaAdiacente = new Stanza("stanzaAdiacente");
-		stanzaPrincipale.impostaStanzaAdiacente("nord", stanzaAdiacente);
+		stanzaPrincipale.impostaStanzaAdiacente(Direzione.NORD, stanzaAdiacente);
 		assertNull (stanzaPrincipale.getStanzaAdiacente(null));
 	}
 	
 	
 	/************** TEST METODO getDirezioni **************/
 	
-	//test che controlla che con ha direzioni vuota, ovvero se ha una stanza adiacente
+	//test che controlla che non ha direzioni vuota, ovvero se ha una stanza adiacente
 	@Test
 	public void testGetDirezioni_DirezioniNonVuote () {
 		Stanza stanzaPrincipale = new Stanza("stanzaPrincipale");
 		Stanza stanzaAdiacente = new Stanza ("stanzaAdiacente");
-		stanzaPrincipale.impostaStanzaAdiacente("nord", stanzaAdiacente);
-		String[] direzioni = stanzaPrincipale.getDirezioni();
-		assertEquals (direzioni.length, 1);
+		stanzaPrincipale.impostaStanzaAdiacente(Direzione.NORD, stanzaAdiacente);
+		assertFalse (stanzaPrincipale.getDirezioni().isEmpty());
 	}
 	
-	//test che non ha stanze adiacenti
+	//test che controlla che una stanza non ha stanze adiacenti
 	@Test
 	public void testGetDirezioni_DirezioniVuote () {
 		Stanza stanzaPrincipale = new Stanza("stanzaPrincipale_senzaAdiacenti");
-		String[] direzioni = stanzaPrincipale.getDirezioni();
-		assertEquals (0, direzioni.length);
+		assertTrue (stanzaPrincipale.getDirezioni().isEmpty());
 	}
 	
 	//test che controlla se la prima direzione di una stanza sia la prima stranza adiacente inserita
@@ -85,9 +85,10 @@ public class StanzaTest {
 		Stanza stanzaPrincipale = new Stanza("stanzaPrincipale");
 		Stanza stanzaAdiacente1 = new Stanza ("stanzaAdiacente1");
 		Stanza stanzaAdiacente2 = new Stanza ("stanzaAdiacente2");
-		stanzaPrincipale.impostaStanzaAdiacente("nord", stanzaAdiacente1);
-		stanzaPrincipale.impostaStanzaAdiacente("sud", stanzaAdiacente2);
-		String[] direzioni = stanzaPrincipale.getDirezioni();
-		assertEquals ("nord", direzioni[0]);
+		stanzaPrincipale.impostaStanzaAdiacente(Direzione.NORD, stanzaAdiacente1);
+		stanzaPrincipale.impostaStanzaAdiacente(Direzione.SUD, stanzaAdiacente2);
+		Iterator<Direzione> iteratore= stanzaPrincipale.getDirezioni().iterator();
+		assertEquals (Direzione.SUD, iteratore.next());
+		assertEquals (Direzione.NORD, iteratore.next());
 	}
 }

@@ -1,17 +1,14 @@
 package it.uniroma3.diadia;
+
 import java.util.Scanner;
 
-/**
- * Questa classe serve per le stampe e le lettura all'interno
- * dell'intero gioco.
- * 
- * @author docente
- * 
- * @version base
- * 
- */
-
-public class IOConsole implements IO{
+public class IOConsole implements IO {
+	
+	private Scanner scannerDiLinee;
+	
+	public IOConsole(Scanner scanner) {
+		this.scannerDiLinee=scanner;
+	}
 	
 	@Override
 	public void mostraMessaggio(String msg) {
@@ -20,9 +17,8 @@ public class IOConsole implements IO{
 
 	@Override
 	public String leggiRiga() {
-		Scanner scannerDiLinee = new Scanner(System.in);
+//		Scanner scannerDiLinee = new Scanner(System.in);
 		String riga = scannerDiLinee.nextLine();
-		//scannerDiLinee.close();
 		return riga;
 	}
 }

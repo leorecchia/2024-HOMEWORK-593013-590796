@@ -4,18 +4,23 @@ import static org.junit.Assert.*;
 import org.junit.*;
 import org.junit.Test;
 
-import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.ambienti.Direzione;
+import it.uniroma3.diadia.ambienti.LabirintoBuilder;
 import it.uniroma3.diadia.ambienti.Stanza;
 
 public class PartitaTest {
 	
-	private Labirinto labirinto;
+	private LabirintoBuilder labirinto;
 	private Partita game;
 	private Stanza room;
 	
 	@Before
 	public void setUp () {
-		game = new Partita();		
+		labirinto = new LabirintoBuilder()
+				.addStanzaIniziale("Atrio")
+				.addStanzaVincente("Biblioteca")
+				.addAdiacenza("Atrio", "Biblioteca", Direzione.NORD);
+		game = new Partita(labirinto);	
 	}
 
 	
@@ -39,7 +44,6 @@ public class PartitaTest {
 	
 	@Test
 	public void testIsFinita_partitaFinisceInBiblioteca() {
-		labirinto = new Labirinto();
 		game.setStanzaCorrente(labirinto.getStanzaVincente());
 		game.setStanzaCorrente(labirinto.getStanzaVincente());
 		assertSame (game.getStanzaCorrente(), labirinto.getStanzaVincente());

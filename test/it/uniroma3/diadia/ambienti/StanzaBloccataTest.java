@@ -13,28 +13,28 @@ public class StanzaBloccataTest {
 	
 	@Test
 	public void testGetStanzaAdiacente_DirezioneNonBloccata() {
-		stanzaBloccata = new StanzaBloccata("stanzaBloccata", "direzioneBloccata", "attrezzoChiave");
+		stanzaBloccata = new StanzaBloccata("stanzaBloccata", Direzione.NORD, "attrezzoChiave");
 		Stanza stanzaAdiacenteNonBloccata = new Stanza("stanzaAdiacenteNonBloccata");
-		stanzaBloccata.impostaStanzaAdiacente("direzioneNonBloccata", stanzaAdiacenteNonBloccata);
-		assertEquals (stanzaAdiacenteNonBloccata, stanzaBloccata.getStanzaAdiacente("direzioneNonBloccata"));
+		stanzaBloccata.impostaStanzaAdiacente(Direzione.SUD, stanzaAdiacenteNonBloccata);
+		assertEquals (stanzaAdiacenteNonBloccata, stanzaBloccata.getStanzaAdiacente(Direzione.SUD));
 	}
 
 	@Test
 	public void testGetStanzaAdiacente_DirezioneBloccataSenzaAttrezzo() {
-		stanzaBloccata = new StanzaBloccata("stanzaBloccata", "direzioneBloccata", "attrezzoChiave");
+		stanzaBloccata = new StanzaBloccata("stanzaBloccata", Direzione.NORD, "attrezzoChiave");
 		Stanza stanzaAdiacenteNonBloccata = new Stanza("stanzaAdiacenteNonBloccata");
-		stanzaBloccata.impostaStanzaAdiacente("direzioneBloccata", stanzaAdiacenteNonBloccata);
-		assertEquals (stanzaBloccata, stanzaBloccata.getStanzaAdiacente("direzioneBloccata"));
+		stanzaBloccata.impostaStanzaAdiacente(Direzione.NORD, stanzaAdiacenteNonBloccata);
+		assertEquals (stanzaBloccata, stanzaBloccata.getStanzaAdiacente(Direzione.NORD));
 	}
 	
 	@Test
 	public void testGetStanzaAdiacente_DirezioneBloccataConAttrezzoChiave() {
-		stanzaBloccata = new StanzaBloccata("stanzaBloccata", "direzioneBloccata", "attrezzoChiave");
+		stanzaBloccata = new StanzaBloccata("stanzaBloccata", Direzione.NORD, "attrezzoChiave");
 		Stanza stanzaAdiacenteNonBloccataInDirezioneBloccata = new Stanza("stanzaAdiacenteNonBloccataInDirezioneBloccata");
 		Attrezzo attrezzoChiave = new Attrezzo("attrezzoChiave", 1);
 		stanzaBloccata.addAttrezzo(attrezzoChiave);
-		stanzaBloccata.impostaStanzaAdiacente("direzioneBloccata", stanzaAdiacenteNonBloccataInDirezioneBloccata);
-		assertEquals (stanzaAdiacenteNonBloccataInDirezioneBloccata, stanzaBloccata.getStanzaAdiacente("direzioneBloccata"));
+		stanzaBloccata.impostaStanzaAdiacente(Direzione.NORD, stanzaAdiacenteNonBloccataInDirezioneBloccata);
+		assertEquals (stanzaAdiacenteNonBloccataInDirezioneBloccata, stanzaBloccata.getStanzaAdiacente(Direzione.NORD));
 	}
 
 }

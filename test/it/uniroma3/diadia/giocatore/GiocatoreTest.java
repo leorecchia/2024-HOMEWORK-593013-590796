@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class GiocatoreTest {
@@ -14,7 +15,8 @@ public class GiocatoreTest {
 	
 	@Before
 	public void setUp () {
-		game = new Partita();		
+		Labirinto labirinto = new Labirinto();
+		game = new Partita(labirinto);		
 	}
 	
 	

@@ -2,26 +2,32 @@ package it.uniroma3.diadia;
 
 import static org.junit.Assert.*;
 
+import java.util.Scanner;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import it.uniroma3.diadia.comandi.Comando;
-import it.uniroma3.diadia.comandi.FabbricaDiComandiFisarmonica;
+import it.uniroma3.diadia.ambienti.Labirinto;
+import it.uniroma3.diadia.comandi.AbstractComando;
+import it.uniroma3.diadia.comandi.FabbricaDiComandiRiflessiva;
 
 public class ComandoPrendiTest {
 	
-	private FabbricaDiComandiFisarmonica factory;
+	private FabbricaDiComandiRiflessiva factory;
 	private Partita partita;
-	private IO io = new IOConsole();
+	Scanner scannerDiLinee = new Scanner(System.in);
+	private IO io = new IOConsole(scannerDiLinee);
+	
 	@Before
 	public void setUp () {
-		partita = new Partita();
-		factory = new FabbricaDiComandiFisarmonica(io);
+		Labirinto labirinto = new Labirinto();
+		partita = new Partita(labirinto);
+		factory = new FabbricaDiComandiRiflessiva(io);
 	}
 		
 	@Test
 	public void testEsegui_attrezzoInesistente() {
-		Comando comandoOggettoInesistente = factory.costruisciComando("prendi NomeOggettoInesistente");
+		AbstractComando comandoOggettoInesistente = factory.costruisciComando("prendi NomeOggettoInesistente");
 		comandoOggettoInesistente.esegui(partita);
 		assertTrue(partita.getGiocatore().getBorsa().isEmpty());
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("osso"));
@@ -29,14 +35,14 @@ public class ComandoPrendiTest {
 	
 	@Test
 	public void testEsegui_attrezzoEsistentePresoDallaStanza() {
-		Comando comandoOggettoEsistente = factory.costruisciComando("prendi osso");
+		AbstractComando comandoOggettoEsistente = factory.costruisciComando("prendi osso");
 		comandoOggettoEsistente.esegui(partita);
 		assertFalse(partita.getStanzaCorrente().hasAttrezzo("osso"));
 	}
 	
 	@Test
 	public void testEsegui_attrezzoEsistenteMessoNellaBorsa() {
-		Comando comandoOggettoEsistente = factory.costruisciComando("prendi osso");
+		AbstractComando comandoOggettoEsistente = factory.costruisciComando("prendi osso");
 		comandoOggettoEsistente.esegui(partita);
 		assertTrue(partita.getGiocatore().getBorsa().hasAttrezzo("osso"));
 	}
